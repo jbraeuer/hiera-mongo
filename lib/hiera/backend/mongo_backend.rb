@@ -5,16 +5,16 @@ class Hiera
                 require 'mongo'
                 
                 @db = Mongo::Connection.new(Config[:mongo][:server]).db(Config[:mongo][:database])
-                Hiera.debug("Hiera mongo backend starting")
+                Hiera.warn("Hiera mongo backend starting")
             end
 
             def lookup(key, scope, order_override, resolution_type)
                 answer = Backend.empty_answer(resolution_type)
 
-                Hiera.debug("Looking up key '#{key}' in mongo backend")
+                Hiera.warn("Looking up key '#{key}' in mongo backend")
 
                 Backend.datasources(scope, order_override) do |source|
-                    Hiera.debug("Looking up key '#{key}' in data source #{source}")
+                    Hiera.warn("Looking up key '#{key}' in data source #{source}")
 
                     collection = @db[source] || next
 
